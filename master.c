@@ -14,9 +14,9 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #define delay for(i=0;i<=1000;i++)
-#define rs RC0
-#define rw RC1
-#define e RC2
+//#define rs RC0
+//#define rw RC1
+//#define e RC2
 
 #define irsensor1 RB0
 #define irsensor2 RB1
@@ -70,7 +70,7 @@ void count(){
 void display(){
         
         
-       if(total >= 0 && total <=9){
+       if(total >= 0 && total <=55){
         
             Lcd_Clear();
             sprintf(s, "IN = %d", count1);
@@ -152,26 +152,21 @@ void main()
            month=rtc_read_byte(0x05);
            year =rtc_read_byte(0x06);
       
-           count();
             
     
-            if(count1 > 0 && count1 < 10 && irsensor1==1){
-
+            if(total >= 0 && total <=55 && irsensor1==1){
+                          count();
                           UART_Write(0x00);
-                          display();
-                          
-               
-                          
-                       
-                          
-
+                          display();            
               }
-            if(count2 > 0 && count2 < 10 && irsensor2==1){
-                   
+            if(total > 0 && total <=55 && irsensor2==1){
+                          count();
                           UART_Write(0x01);
-                          display();
-                          
+                          display();         
               }
+            else{
+                display();  
+            }
             
      }
   
